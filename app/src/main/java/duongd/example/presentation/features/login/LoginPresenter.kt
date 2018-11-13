@@ -7,7 +7,7 @@ import duongd.example.domain.usecase.login.LoginUserCase
 import duongd.example.domain.usecase.login.RequestLoginModel
 
 class LoginPresenter(
-    private val loginUserCase: LoginUserCase
+    private val loginUseCase: LoginUserCase
 ) : LoginContract.Presenter() {
 
     private var isRememberMe = false
@@ -18,10 +18,10 @@ class LoginPresenter(
 
     override fun onLoginClicked(userName: String, password: String) {
         view?.showLoading()
-        loginUserCase.cancel()
+        loginUseCase.cancel()
         val requestLoginModel = RequestLoginModel(userName = userName, password = password, isRememberMe = isRememberMe)
 
-        loginUserCase.executeAsync(
+        loginUseCase.executeAsync(
             resultListener = object : ResultListener<LoginResultModel, LoginFailOutput> {
                 override fun success(successOutput: LoginResultModel) {
                     view?.hideLoading()
@@ -52,7 +52,7 @@ class LoginPresenter(
 
     override fun onDetachView() {
         super.onDetachView()
-        loginUserCase.cancel()
+        loginUseCase.cancel()
     }
 
 }

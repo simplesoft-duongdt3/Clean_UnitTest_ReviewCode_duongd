@@ -20,7 +20,7 @@ object KoinModules {
     private val loginModule = module {
         factory {
             LoginPresenter(
-                loginUserCase = get()
+                loginUseCase = get()
             ) as LoginContract.Presenter
         }
 
